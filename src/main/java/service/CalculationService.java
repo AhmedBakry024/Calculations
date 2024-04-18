@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 import model.Calculation;
 
 @Stateless
-@Path("/calc")
+@Path("")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class CalculationService {
@@ -39,12 +39,9 @@ public class CalculationService {
 		return number1 / number2;
 	}
 	
-	@GET
-	public String test() {
-		return "Hello World!";
-	}
 	
 	@POST
+	@Path("calc")
 	public Response calculate(Calculation calculation) {
 		int result = 0;
 		switch (calculation.getOperation()) {
@@ -68,17 +65,10 @@ public class CalculationService {
 	}
 	
 	@GET
-	@Path("/calculations")
+	@Path("calculations")
 	public Response getCalculations() {
 		Query query = em.createQuery("SELECT c FROM Calculation c");
 		return Response.ok(query.getResultList()).build();
-	}
-	
-	
-	@GET
-	@Path("/hello")
-	public String hello() {
-		return "Hello World!";
 	}
 	
 	
